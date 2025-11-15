@@ -1,0 +1,14 @@
+[gd_scene load_steps=5 format=3 uid="uid://co2f88ymfqh22"]
+
+[ext_resource type="Script" uid="uid://q31ohq5p1gwv" path="res://Scripts/level.gd" id="1_tumq0"]
+[ext_resource type="PackedScene" uid="uid://6l0kpd6gahv1" path="res://Scenes/Enemies/jelly_fish.tscn" id="2_81xng"]
+[ext_resource type="PackedScene" uid="uid://buvrsvtx5lcjr" path="res://Scenes/Enemies/crab.tscn" id="3_wqkje"]
+[ext_resource type="PackedScene" uid="uid://n1io13cywomk" path="res://Scenes/Enemies/squid.tscn" id="4_0f350"]
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_tumq0")
+jelly_fish_scene = ExtResource("2_81xng")
+crab_scene = ExtResource("3_wqkje")
+squid_scene = ExtResource("4_0f350")
+
+[node name="Enemies" type="Node" parent="."]

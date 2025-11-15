@@ -1,0 +1,125 @@
+[gd_scene load_steps=16 format=3 uid="uid://bq4cuoha2ittf"]
+
+[ext_resource type="Script" uid="uid://cnqh5252rtqea" path="res://Scripts/enemy.gd" id="1_1f0kj"]
+[ext_resource type="Texture2D" uid="uid://dcyxcou07de2m" path="res://Assets/character_tilesheet.png" id="1_hghv2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0830c"]
+size = Vector2(16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1f0kj"]
+atlas = ExtResource("1_hghv2")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_afpow"]
+atlas = ExtResource("1_hghv2")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_287tu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1f0kj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_afpow")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hghv2"]
+atlas = ExtResource("1_hghv2")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_287tu"]
+atlas = ExtResource("1_hghv2")
+region = Rect2(16, 32, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0830c"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hghv2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_287tu")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ghaa6"]
+atlas = ExtResource("1_hghv2")
+region = Rect2(0, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1dp5w"]
+atlas = ExtResource("1_hghv2")
+region = Rect2(16, 48, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_auwsv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ghaa6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1dp5w")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8uf12"]
+atlas = ExtResource("1_hghv2")
+region = Rect2(0, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_po0sg"]
+atlas = ExtResource("1_hghv2")
+region = Rect2(16, 64, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_haro7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8uf12")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_po0sg")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Enemy" type="Area2D"]
+script = ExtResource("1_1f0kj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_0830c")
+
+[node name="Enemy1" type="AnimatedSprite2D" parent="." groups=["enemy"]]
+sprite_frames = SubResource("SpriteFrames_287tu")
+autoplay = "default"
+frame_progress = 0.6083897
+
+[node name="Enemy2" type="AnimatedSprite2D" parent="." groups=["enemy"]]
+visible = false
+sprite_frames = SubResource("SpriteFrames_0830c")
+autoplay = "default"
+frame_progress = 0.81701386
+
+[node name="Enemy3" type="AnimatedSprite2D" parent="." groups=["enemy"]]
+visible = false
+sprite_frames = SubResource("SpriteFrames_auwsv")
+autoplay = "default"
+
+[node name="Enemy4" type="AnimatedSprite2D" parent="." groups=["enemy"]]
+visible = false
+sprite_frames = SubResource("SpriteFrames_haro7")
+autoplay = "default"
+frame_progress = 0.7393936
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

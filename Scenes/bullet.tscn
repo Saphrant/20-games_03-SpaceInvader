@@ -1,0 +1,50 @@
+[gd_scene load_steps=6 format=3 uid="uid://c3wpfrfy36ix6"]
+
+[ext_resource type="Script" uid="uid://dsfq4h23hr83j" path="res://Scripts/bullet.gd" id="1_v7oki"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v8qja"]
+size = Vector2(4, 17)
+
+[sub_resource type="SphereMesh" id="SphereMesh_xjght"]
+radius = 1.5
+
+[sub_resource type="Gradient" id="Gradient_rtl8c"]
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_v7oki"]
+gradient = SubResource("Gradient_rtl8c")
+width = 4
+height = 24
+fill_from = Vector2(1, 0.30769232)
+
+[node name="Bullet" type="Area2D" groups=["projectile"]]
+collision_layer = 2
+collision_mask = 4
+script = ExtResource("1_v7oki")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, -3.5)
+shape = SubResource("RectangleShape2D_v8qja")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+position = Vector2(1.1934446e-07, -5.9588423)
+scale = Vector2(1, 1.082315)
+mesh = SubResource("SphereMesh_xjght")
+
+[node name="MeshInstance2D2" type="MeshInstance2D" parent="."]
+modulate = Color(1, 0.7764706, 0, 1)
+position = Vector2(1.1934446e-07, -6.0986485)
+scale = Vector2(1, 2.8027027)
+mesh = SubResource("SphereMesh_xjght")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-0.016982526, 3.3900003)
+scale = Vector2(0.75468606, 0.7825)
+texture = SubResource("GradientTexture2D_v7oki")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+rect = Rect2(-2, -3, 4, 5.355068)
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=3 uid="uid://6l0kpd6gahv1"]
+
+[ext_resource type="Script" uid="uid://cnqh5252rtqea" path="res://Scripts/enemy.gd" id="1_rs2mk"]
+[ext_resource type="Texture2D" uid="uid://bhpccknk8yb75" path="res://Assets/character_tilesheet_retro_transparent.png" id="2_s6q8d"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0830c"]
+size = Vector2(16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_seuex"]
+atlas = ExtResource("2_s6q8d")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kw8up"]
+atlas = ExtResource("2_s6q8d")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_287tu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_seuex")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kw8up")
+}],
+"loop": true,
+"name": &"default",
+"speed": 2.0
+}]
+
+[node name="JellyFish" type="Area2D"]
+script = ExtResource("1_rs2mk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_0830c")
+
+[node name="EnemySprite" type="AnimatedSprite2D" parent="." groups=["enemy"]]
+sprite_frames = SubResource("SpriteFrames_287tu")
+autoplay = "default"
+frame_progress = 0.89939606
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

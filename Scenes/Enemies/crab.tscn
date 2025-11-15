@@ -1,0 +1,46 @@
+[gd_scene load_steps=7 format=3 uid="uid://buvrsvtx5lcjr"]
+
+[ext_resource type="Script" uid="uid://cnqh5252rtqea" path="res://Scripts/enemy.gd" id="1_mbujr"]
+[ext_resource type="Texture2D" uid="uid://bhpccknk8yb75" path="res://Assets/character_tilesheet_retro_transparent.png" id="2_usnq2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0830c"]
+size = Vector2(16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_20aek"]
+atlas = ExtResource("2_usnq2")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_87me1"]
+atlas = ExtResource("2_usnq2")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_287tu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_20aek")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_87me1")
+}],
+"loop": true,
+"name": &"default",
+"speed": 2.0
+}]
+
+[node name="Crab" type="Area2D"]
+script = ExtResource("1_mbujr")
+award_score = 20
+horizontal_speed = null
+vertical_step = null
+horizontal_padding = null
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_0830c")
+
+[node name="EnemySprite" type="AnimatedSprite2D" parent="." groups=["enemy"]]
+sprite_frames = SubResource("SpriteFrames_287tu")
+autoplay = "default"
+frame_progress = 0.74641275
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

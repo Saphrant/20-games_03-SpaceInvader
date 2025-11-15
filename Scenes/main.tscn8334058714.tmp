@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=3 uid="uid://cjq7yu20rfotr"]
+
+[ext_resource type="PackedScene" uid="uid://bq4cuoha2ittf" path="res://Scenes/enemy.tscn" id="1_bo1nx"]
+[ext_resource type="PackedScene" uid="uid://d3b7uxf6yaera" path="res://Scenes/player.tscn" id="2_8gbba"]
+[ext_resource type="PackedScene" uid="uid://c3wpfrfy36ix6" path="res://Scenes/bullet.tscn" id="2_jjvhh"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_0xm2m"]
+
+[node name="Main" type="Node2D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+color = Color(0.056291588, 0.056291603, 0.056291595, 1)
+metadata/_edit_lock_ = true
+
+[node name="LeftWall" type="StaticBody2D" parent="."]
+rotation = 1.5707964
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall"]
+shape = SubResource("WorldBoundaryShape2D_0xm2m")
+
+[node name="RightWall" type="StaticBody2D" parent="."]
+position = Vector2(320, 0)
+rotation = -1.5707964
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall"]
+shape = SubResource("WorldBoundaryShape2D_0xm2m")
+
+[node name="bullet_parent" type="Node2D" parent="."]
+
+[node name="Enemy" parent="." instance=ExtResource("1_bo1nx")]
+position = Vector2(118, 83)
+
+[node name="Player" parent="." instance=ExtResource("2_8gbba")]
+position = Vector2(120, 202)
+bullet_scene = ExtResource("2_jjvhh")

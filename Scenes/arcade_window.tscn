@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://vwvhwerme2at"]
+
+[ext_resource type="Texture2D" uid="uid://b5uott2tu8qap" path="res://Assets/Arcade_Frame/ArcadeOverlay.png" id="1_jrxvf"]
+
+[node name="ArcadeWindow" type="CanvasLayer"]
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_jrxvf")
+expand_mode = 2

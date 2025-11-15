@@ -1,0 +1,72 @@
+[gd_scene load_steps=8 format=3 uid="uid://cjq7yu20rfotr"]
+
+[ext_resource type="Script" uid="uid://x245u7o2e6sl" path="res://Scenes/main.gd" id="1_21xkr"]
+[ext_resource type="PackedScene" uid="uid://d3b7uxf6yaera" path="res://Scenes/player.tscn" id="2_8gbba"]
+[ext_resource type="PackedScene" uid="uid://c3wpfrfy36ix6" path="res://Scenes/bullet.tscn" id="2_jjvhh"]
+[ext_resource type="PackedScene" uid="uid://co2f88ymfqh22" path="res://Scenes/level.tscn" id="3_8gbba"]
+[ext_resource type="Shader" uid="uid://cjdbi0tadeiga" path="res://Resources/CTR_Scan.gdshader" id="5_kry3j"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_0xm2m"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_21xkr"]
+shader = ExtResource("5_kry3j")
+shader_parameter/resolution = Vector2(320, 180)
+shader_parameter/scan_line_amount = 1.0
+shader_parameter/warp_amount = 0.1
+shader_parameter/noise_amount = 0.03
+shader_parameter/interference_amount = 0.2
+shader_parameter/grille_amount = 0.1
+shader_parameter/grille_size = 1.0
+shader_parameter/vignette_amount = 0.6
+shader_parameter/vignette_intensity = 0.4
+shader_parameter/aberation_amount = 0.5
+shader_parameter/roll_line_amount = 0.3
+shader_parameter/roll_speed = 1.0
+shader_parameter/scan_line_strength = -8.0
+shader_parameter/pixel_strength = -2.0
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_21xkr")
+level_scene = ExtResource("3_8gbba")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+color = Color(0.056291588, 0.056291603, 0.056291595, 1)
+metadata/_edit_lock_ = true
+
+[node name="LeftWall" type="StaticBody2D" parent="."]
+rotation = 1.5707964
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall"]
+shape = SubResource("WorldBoundaryShape2D_0xm2m")
+
+[node name="RightWall" type="StaticBody2D" parent="."]
+position = Vector2(320, 0)
+rotation = -1.5707964
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall"]
+shape = SubResource("WorldBoundaryShape2D_0xm2m")
+
+[node name="bullet_parent" type="Node2D" parent="."]
+
+[node name="Player" parent="." instance=ExtResource("2_8gbba")]
+position = Vector2(120, 202)
+bullet_scene = ExtResource("2_jjvhh")
+
+[node name="PostProcess" type="CanvasLayer" parent="."]
+
+[node name="TextureRect" type="TextureRect" parent="PostProcess"]
+material = SubResource("ShaderMaterial_21xkr")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
