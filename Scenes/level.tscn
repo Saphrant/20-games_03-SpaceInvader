@@ -11,4 +11,10 @@ jelly_fish_scene = ExtResource("2_81xng")
 crab_scene = ExtResource("3_wqkje")
 squid_scene = ExtResource("4_0f350")
 
-[node name="Enemies" type="Node" parent="."]
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="MoveTimer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[connection signal="timeout" from="MoveTimer" to="." method="_on_move_timer_timeout"]

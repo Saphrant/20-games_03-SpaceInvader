@@ -10,20 +10,20 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_21xkr"]
 shader = ExtResource("5_kry3j")
-shader_parameter/resolution = Vector2(320, 180)
-shader_parameter/scan_line_amount = 1.0
-shader_parameter/warp_amount = 0.1
-shader_parameter/noise_amount = 0.03
+shader_parameter/resolution = Vector2(640, 360)
+shader_parameter/scan_line_amount = 0.50000002375
+shader_parameter/warp_amount = 0.150000007125
+shader_parameter/noise_amount = 0.0610000028975
 shader_parameter/interference_amount = 0.2
 shader_parameter/grille_amount = 0.1
 shader_parameter/grille_size = 1.0
 shader_parameter/vignette_amount = 0.6
 shader_parameter/vignette_intensity = 0.4
-shader_parameter/aberation_amount = 0.5
-shader_parameter/roll_line_amount = 0.3
+shader_parameter/aberation_amount = 0.50000002375
+shader_parameter/roll_line_amount = 0.19600000931
 shader_parameter/roll_speed = 1.0
 shader_parameter/scan_line_strength = -8.0
-shader_parameter/pixel_strength = -2.0
+shader_parameter/pixel_strength = -1.301999871845
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_0xm2m"]
 
@@ -32,12 +32,12 @@ script = ExtResource("1_21xkr")
 level_scene = ExtResource("3_8gbba")
 
 [node name="TextureRect" type="TextureRect" parent="."]
-modulate = Color(0, 0.1882353, 0, 1)
+modulate = Color(0, 0.24313726, 0, 1)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 319.0
-offset_bottom = 223.0
+offset_right = 639.0
+offset_bottom = 358.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
@@ -71,7 +71,7 @@ grow_vertical = 2
 texture = ExtResource("5_6bp64")
 
 [node name="LeftWall" type="StaticBody2D" parent="."]
-position = Vector2(20, -1)
+position = Vector2(10, 174)
 rotation = 1.5707964
 collision_layer = 2
 
@@ -79,7 +79,7 @@ collision_layer = 2
 shape = SubResource("WorldBoundaryShape2D_0xm2m")
 
 [node name="RightWall" type="StaticBody2D" parent="."]
-position = Vector2(293, -2)
+position = Vector2(618, 168)
 rotation = -1.5707964
 collision_layer = 2
 
@@ -89,5 +89,5 @@ shape = SubResource("WorldBoundaryShape2D_0xm2m")
 [node name="bullet_parent" type="Node2D" parent="."]
 
 [node name="Player" parent="." instance=ExtResource("2_8gbba")]
-position = Vector2(120, 180)
+position = Vector2(320, 300)
 bullet_scene = ExtResource("2_jjvhh")

@@ -29,6 +29,8 @@ animations = [{
 }]
 
 [node name="Squid" type="Area2D"]
+collision_layer = 4
+collision_mask = 11
 script = ExtResource("1_xvfe3")
 award_score = 30
 
@@ -38,6 +40,6 @@ shape = SubResource("RectangleShape2D_0830c")
 [node name="EnemySprite" type="AnimatedSprite2D" parent="." groups=["enemy"]]
 sprite_frames = SubResource("SpriteFrames_287tu")
 autoplay = "default"
-frame_progress = 0.02159652
+frame_progress = 0.57802385
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

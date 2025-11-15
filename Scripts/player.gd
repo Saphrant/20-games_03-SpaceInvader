@@ -5,8 +5,8 @@ extends Area2D
 @export var bullet_scene : PackedScene
 @export var player_speed := 100.0
 
-var min_x := 30.0
-var max_x := 285.0
+var min_x := 10.0
+var max_x := 600.0
 
 var direction_x := 0.0
 var current_health := 3

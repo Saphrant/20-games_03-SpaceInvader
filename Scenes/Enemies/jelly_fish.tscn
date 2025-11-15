@@ -29,6 +29,8 @@ animations = [{
 }]
 
 [node name="JellyFish" type="Area2D"]
+collision_layer = 4
+collision_mask = 11
 script = ExtResource("1_rs2mk")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
