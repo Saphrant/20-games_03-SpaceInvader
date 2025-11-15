@@ -30,7 +30,7 @@ animations = [{
 
 [node name="Squid" type="Area2D"]
 collision_layer = 4
-collision_mask = 11
+collision_mask = 27
 script = ExtResource("1_xvfe3")
 award_score = 30
 

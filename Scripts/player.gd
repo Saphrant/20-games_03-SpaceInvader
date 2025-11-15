@@ -1,12 +1,13 @@
 extends Area2D
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
+@onready var marker_2d: Marker2D = $Marker2D
 
 @export var bullet_scene : PackedScene
 @export var player_speed := 100.0
 
-var min_x := 10.0
-var max_x := 600.0
+var min_x := 48.0
+var max_x := 577.0
 
 var direction_x := 0.0
 var current_health := 3
@@ -29,18 +30,16 @@ func _process(delta: float) -> void:
 
 func _shoot() -> void:
 	var bullet = bullet_scene.instantiate() as Area2D
-	bullet.global_position = self.global_position
+	bullet.global_position = marker_2d.global_position
 	get_parent().add_child(bullet)
 
-func _on_hit(amount) -> void:
-	current_health -= amount
-	if current_health <= 1:
-		GameManager.on_life_lost()
-		queue_free()
+func _on_hit() -> void:
+	GameManager.on_life_lost()
+	queue_free()
 	
 func _on_bullet_exist(bullet_destroyed) -> void:
 	bullet_exist = bullet_destroyed
 	
 func _on_area_entered(area: Area2D) -> void:
 	if area.is_in_group("enemy_projectile"):
-		_on_hit(1)
+		_on_hit()

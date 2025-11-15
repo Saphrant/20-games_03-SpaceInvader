@@ -1,6 +1,6 @@
 extends Area2D
 
-@export var bullet_speed := 200
+@export var bullet_speed := 400
 
 func _physics_process(delta: float) -> void:
 	global_position += Vector2.UP * bullet_speed * delta

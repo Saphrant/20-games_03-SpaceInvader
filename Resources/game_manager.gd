@@ -24,6 +24,9 @@ var current_level := 1
 
 var screen_size:= Vector2(320,224)
 
+func _ready() -> void:
+	pass
+
 func on_new_level() -> void:
 	current_level += 1
 	level_complete.emit(current_level)
@@ -31,4 +34,3 @@ func on_new_level() -> void:
 func on_bullet_destroyed() -> void:
 	# Does bullet exist?
 	bullet_exist.emit(false)
-	

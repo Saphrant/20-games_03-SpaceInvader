@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cjq7yu20rfotr"]
+[gd_scene load_steps=9 format=3 uid="uid://cjq7yu20rfotr"]
 
 [ext_resource type="Script" uid="uid://x245u7o2e6sl" path="res://Scripts/main.gd" id="1_21xkr"]
 [ext_resource type="PackedScene" uid="uid://d3b7uxf6yaera" path="res://Scenes/player.tscn" id="2_8gbba"]
@@ -10,39 +10,24 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_21xkr"]
 shader = ExtResource("5_kry3j")
-shader_parameter/resolution = Vector2(640, 360)
-shader_parameter/scan_line_amount = 0.50000002375
-shader_parameter/warp_amount = 0.150000007125
-shader_parameter/noise_amount = 0.0610000028975
+shader_parameter/resolution = Vector2(320, 244)
+shader_parameter/scan_line_amount = 1.0
+shader_parameter/warp_amount = 0.1
+shader_parameter/noise_amount = 0.03
 shader_parameter/interference_amount = 0.2
 shader_parameter/grille_amount = 0.1
 shader_parameter/grille_size = 1.0
 shader_parameter/vignette_amount = 0.6
 shader_parameter/vignette_intensity = 0.4
-shader_parameter/aberation_amount = 0.50000002375
-shader_parameter/roll_line_amount = 0.19600000931
+shader_parameter/aberation_amount = 0.5
+shader_parameter/roll_line_amount = 0.3
 shader_parameter/roll_speed = 1.0
 shader_parameter/scan_line_strength = -8.0
-shader_parameter/pixel_strength = -1.301999871845
-
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_0xm2m"]
+shader_parameter/pixel_strength = -2.0
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_21xkr")
 level_scene = ExtResource("3_8gbba")
-
-[node name="TextureRect" type="TextureRect" parent="."]
-modulate = Color(0, 0.24313726, 0, 1)
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = 639.0
-offset_bottom = 358.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-texture = ExtResource("5_6bp64")
-expand_mode = 1
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = -1
@@ -57,37 +42,47 @@ size_flags_horizontal = 3
 color = Color(0.056291588, 0.056291603, 0.056291595, 1)
 metadata/_edit_lock_ = true
 
-[node name="ArcadeWindow" parent="." instance=ExtResource("3_21xkr")]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+modulate = Color(0, 0.24313726, 0, 1)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+texture = ExtResource("5_6bp64")
+expand_mode = 1
 
 [node name="PostProcess" type="CanvasLayer" parent="."]
+transform = Transform2D(1, 1.7484555e-07, -1.7484555e-07, 1, 0, 0)
+follow_viewport_scale = 0.001
 
 [node name="TextureRect" type="TextureRect" parent="PostProcess"]
 material = SubResource("ShaderMaterial_21xkr")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 6.447378
+offset_top = 16.092093
+offset_right = 133.78015
+offset_bottom = 140.14642
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(0.7816741, 0.7255128)
 texture = ExtResource("5_6bp64")
 
-[node name="LeftWall" type="StaticBody2D" parent="."]
-position = Vector2(10, 174)
-rotation = 1.5707964
-collision_layer = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall"]
-shape = SubResource("WorldBoundaryShape2D_0xm2m")
-
-[node name="RightWall" type="StaticBody2D" parent="."]
-position = Vector2(618, 168)
-rotation = -1.5707964
-collision_layer = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall"]
-shape = SubResource("WorldBoundaryShape2D_0xm2m")
+[node name="ArcadeWindow" parent="." instance=ExtResource("3_21xkr")]
+follow_viewport_enabled = true
 
 [node name="bullet_parent" type="Node2D" parent="."]
 
 [node name="Player" parent="." instance=ExtResource("2_8gbba")]
-position = Vector2(320, 300)
+position = Vector2(320, 360)
 bullet_scene = ExtResource("2_jjvhh")
+
+[node name="PlayArea" type="Node" parent="."]
+
+[node name="Line2D" type="Line2D" parent="PlayArea"]
+points = PackedVector2Array(40, 400, 585, 400)
+width = 2.0
+default_color = Color(0.102666706, 0.56, 0, 1)
