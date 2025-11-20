@@ -1,0 +1,61 @@
+[gd_scene load_steps=9 format=3 uid="uid://d2fra4ph0vv51"]
+
+[ext_resource type="Script" uid="uid://bqsdnhmfq8464" path="res://Scripts/enemy_bullet.gd" id="1_54jiv"]
+[ext_resource type="Texture2D" uid="uid://bbq7h1ck1w8af" path="res://Assets/character_tilesheet_retro_transparent.png" id="2_54jiv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v8qja"]
+size = Vector2(4, 4)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b6yqb"]
+atlas = ExtResource("2_54jiv")
+region = Rect2(0, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_72t2l"]
+atlas = ExtResource("2_54jiv")
+region = Rect2(32, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mrehe"]
+atlas = ExtResource("2_54jiv")
+region = Rect2(48, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0i3yy"]
+atlas = ExtResource("2_54jiv")
+region = Rect2(16, 48, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_r5df1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b6yqb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_72t2l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mrehe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0i3yy")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="Bullet" type="Area2D" groups=["enemy_bullet"]]
+collision_layer = 32
+collision_mask = 19
+script = ExtResource("1_54jiv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_v8qja")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+modulate = Color(0, 0.7885648, 0.9667391, 1)
+position = Vector2(0, -6)
+sprite_frames = SubResource("SpriteFrames_r5df1")
+autoplay = "default"
+frame_progress = 0.6144657
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

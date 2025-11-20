@@ -1,13 +1,15 @@
-[gd_scene load_steps=7 format=3 uid="uid://d3b7uxf6yaera"]
+[gd_scene load_steps=14 format=3 uid="uid://d3b7uxf6yaera"]
 
 [ext_resource type="Script" uid="uid://bgtrgfcyg41rb" path="res://Scripts/player.gd" id="1_cvnsp"]
-[ext_resource type="Texture2D" uid="uid://bhpccknk8yb75" path="res://Assets/character_tilesheet_retro_transparent.png" id="2_cvnsp"]
+[ext_resource type="PackedScene" uid="uid://c3wpfrfy36ix6" path="res://Scenes/friendly_bullet.tscn" id="2_6t5aa"]
+[ext_resource type="Texture2D" uid="uid://bbq7h1ck1w8af" path="res://Assets/character_tilesheet_retro_transparent.png" id="2_cvnsp"]
+[ext_resource type="AudioStream" uid="uid://c4lbfsi15f2tp" path="res://Assets/Sounds/SFX/laserShoot.wav" id="4_vgqql"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_vgqql"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_6t5aa"]
 atlas = ExtResource("2_cvnsp")
 region = Rect2(48, 16, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_6t5aa"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_vgqql"]
 atlas = ExtResource("2_cvnsp")
 region = Rect2(32, 16, 16, 16)
 
@@ -15,10 +17,10 @@ region = Rect2(32, 16, 16, 16)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_vgqql")
+"texture": SubResource("AtlasTexture_6t5aa")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_6t5aa")
+"texture": SubResource("AtlasTexture_vgqql")
 }],
 "loop": false,
 "name": &"default",
@@ -28,11 +30,48 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x3wgy"]
 size = Vector2(14, 15)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_fkybt"]
+atlas = ExtResource("2_cvnsp")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x3wgy"]
+atlas = ExtResource("2_cvnsp")
+region = Rect2(16, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3smsa"]
+atlas = ExtResource("2_cvnsp")
+region = Rect2(32, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8erm5"]
+atlas = ExtResource("2_cvnsp")
+region = Rect2(48, 32, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_f1ek2"]
+animations = [{
+"frames": [{
+"duration": 0.51,
+"texture": SubResource("AtlasTexture_fkybt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x3wgy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3smsa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8erm5")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="Player" type="Area2D" groups=["player"]]
 modulate = Color(0.101960786, 0.56078434, 0, 1)
 scale = Vector2(2, 1.5)
-collision_mask = 4
+collision_mask = 36
 script = ExtResource("1_cvnsp")
+bullet_scene = ExtResource("2_6t5aa")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_fkybt")
@@ -45,4 +84,23 @@ shape = SubResource("RectangleShape2D_x3wgy")
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(0, -7)
 
+[node name="LaserSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_vgqql")
+bus = &"SFX"
+
+[node name="explosion" type="AnimatedSprite2D" parent="."]
+visible = false
+sprite_frames = SubResource("SpriteFrames_f1ek2")
+frame = 3
+frame_progress = 1.0
+
+[node name="ReloadTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="RespawnTimer" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="timeout" from="ReloadTimer" to="." method="_on_reload_timer_timeout"]
+[connection signal="timeout" from="RespawnTimer" to="." method="_on_respawn_timer_timeout"]

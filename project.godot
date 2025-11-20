@@ -12,20 +12,22 @@ config_version=5
 
 config/name="20Games_SpaceInvaders"
 config/tags=PackedStringArray("20games", "2d", "gridmap")
-run/main_scene="uid://cjq7yu20rfotr"
+run/main_scene="uid://cgni3n6x53qcx"
 config/features=PackedStringArray("4.5", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="uid://r03hutv3v12e"
 
 [autoload]
 
 GameManager="*res://Resources/game_manager.tscn"
+AudioManager="*res://Resources/audio_manager.tscn"
+GameData="*res://Resources/GameData.gd"
 
 [display]
 
 window/size/viewport_width=640
 window/size/viewport_height=448
 window/stretch/mode="canvas_items"
-window/vsync/vsync_mode=0
+mouse_cursor/custom_image="uid://8xc46jpdvqib"
 
 [input]
 

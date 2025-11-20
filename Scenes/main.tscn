@@ -1,17 +1,19 @@
-[gd_scene load_steps=9 format=3 uid="uid://cjq7yu20rfotr"]
+[gd_scene load_steps=12 format=3 uid="uid://cjq7yu20rfotr"]
 
 [ext_resource type="Script" uid="uid://x245u7o2e6sl" path="res://Scripts/main.gd" id="1_21xkr"]
 [ext_resource type="PackedScene" uid="uid://d3b7uxf6yaera" path="res://Scenes/player.tscn" id="2_8gbba"]
-[ext_resource type="PackedScene" uid="uid://c3wpfrfy36ix6" path="res://Scenes/bullet.tscn" id="2_jjvhh"]
 [ext_resource type="PackedScene" uid="uid://co2f88ymfqh22" path="res://Scenes/level.tscn" id="3_8gbba"]
 [ext_resource type="PackedScene" uid="uid://vwvhwerme2at" path="res://Scenes/arcade_window.tscn" id="3_21xkr"]
 [ext_resource type="Texture2D" uid="uid://cd6w7qgxjjlad" path="res://Assets/Arcade_Frame/BackgroundGrid.png" id="5_6bp64"]
 [ext_resource type="Shader" uid="uid://cjdbi0tadeiga" path="res://Resources/CTR_Scan.gdshader" id="5_kry3j"]
+[ext_resource type="PackedScene" uid="uid://cgkhyrnk8vip3" path="res://Scenes/ufo.tscn" id="7_6bp64"]
+[ext_resource type="AudioStream" uid="uid://5tj3fxq0asim" path="res://Assets/Sounds/SFX/start-level.wav" id="8_344ge"]
+[ext_resource type="PackedScene" uid="uid://dlklc87qvyr3b" path="res://Scenes/hud.tscn" id="9_ynf5e"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_21xkr"]
 shader = ExtResource("5_kry3j")
-shader_parameter/resolution = Vector2(320, 244)
-shader_parameter/scan_line_amount = 1.0
+shader_parameter/resolution = Vector2(640, 448)
+shader_parameter/scan_line_amount = 0.314000014915
 shader_parameter/warp_amount = 0.1
 shader_parameter/noise_amount = 0.03
 shader_parameter/interference_amount = 0.2
@@ -25,9 +27,11 @@ shader_parameter/roll_speed = 1.0
 shader_parameter/scan_line_strength = -8.0
 shader_parameter/pixel_strength = -2.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_21xkr"]
+size = Vector2(664, 54)
+
 [node name="Main" type="Node2D"]
 script = ExtResource("1_21xkr")
-level_scene = ExtResource("3_8gbba")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = -1
@@ -39,10 +43,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
-color = Color(0.056291588, 0.056291603, 0.056291595, 1)
+color = Color(0.021434633, 0.021434637, 0.021434618, 1)
 metadata/_edit_lock_ = true
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+visible = false
 modulate = Color(0, 0.24313726, 0, 1)
 anchors_preset = 15
 anchor_right = 1.0
@@ -53,14 +58,17 @@ size_flags_horizontal = 3
 texture = ExtResource("5_6bp64")
 expand_mode = 1
 
+[node name="HUD" parent="CanvasLayer" instance=ExtResource("9_ynf5e")]
+z_index = 2
+
 [node name="PostProcess" type="CanvasLayer" parent="."]
 transform = Transform2D(1, 1.7484555e-07, -1.7484555e-07, 1, 0, 0)
 follow_viewport_scale = 0.001
 
 [node name="TextureRect" type="TextureRect" parent="PostProcess"]
 material = SubResource("ShaderMaterial_21xkr")
-anchors_preset = 15
-anchor_right = 1.0
+anchors_preset = -1
+anchor_right = 1.0810981
 anchor_bottom = 1.0
 offset_left = 6.447378
 offset_top = 16.092093
@@ -70,6 +78,7 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.7816741, 0.7255128)
 texture = ExtResource("5_6bp64")
+metadata/_edit_use_anchors_ = true
 
 [node name="ArcadeWindow" parent="." instance=ExtResource("3_21xkr")]
 follow_viewport_enabled = true
@@ -78,11 +87,35 @@ follow_viewport_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("2_8gbba")]
 position = Vector2(320, 360)
-bullet_scene = ExtResource("2_jjvhh")
 
 [node name="PlayArea" type="Node" parent="."]
 
-[node name="Line2D" type="Line2D" parent="PlayArea"]
+[node name="Area2D" type="Area2D" parent="PlayArea"]
+collision_layer = 16
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea/Area2D"]
+position = Vector2(322, 427)
+scale = Vector2(-0.99068487, 1.0361891)
+shape = SubResource("RectangleShape2D_21xkr")
+
+[node name="Line2D" type="Line2D" parent="PlayArea/Area2D"]
+position = Vector2(-12.353369, 0)
+scale = Vector2(1.0619308, 1)
 points = PackedVector2Array(40, 400, 585, 400)
 width = 2.0
 default_color = Color(0.102666706, 0.56, 0, 1)
+
+[node name="UFO" parent="." instance=ExtResource("7_6bp64")]
+
+[node name="StartLevelSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_344ge")
+volume_db = -15.0
+autoplay = true
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+
+[node name="AudioListener2D" type="AudioListener2D" parent="."]
+position = Vector2(320, 395)
+
+[node name="Level" parent="." instance=ExtResource("3_8gbba")]

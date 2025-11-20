@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://dvhjql2hk35oa"]
+[gd_scene load_steps=3 format=3 uid="uid://dvhjql2hk35oa"]
 
 [ext_resource type="Script" uid="uid://fdek6va846p2" path="res://Resources/game_manager.gd" id="1_ksxef"]
+[ext_resource type="PackedScene" uid="uid://dbiq30fkl5ouu" path="res://Scenes/explosion_particle.tscn" id="2_4tp53"]
 
 [node name="GameManager" type="Node"]
 script = ExtResource("1_ksxef")
+explosion_particle_scene = ExtResource("2_4tp53")

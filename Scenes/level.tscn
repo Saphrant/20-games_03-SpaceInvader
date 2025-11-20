@@ -1,20 +1,41 @@
-[gd_scene load_steps=5 format=3 uid="uid://co2f88ymfqh22"]
+[gd_scene load_steps=7 format=3 uid="uid://co2f88ymfqh22"]
 
 [ext_resource type="Script" uid="uid://q31ohq5p1gwv" path="res://Scripts/level.gd" id="1_tumq0"]
 [ext_resource type="PackedScene" uid="uid://6l0kpd6gahv1" path="res://Scenes/Enemies/jelly_fish.tscn" id="2_81xng"]
 [ext_resource type="PackedScene" uid="uid://buvrsvtx5lcjr" path="res://Scenes/Enemies/crab.tscn" id="3_wqkje"]
 [ext_resource type="PackedScene" uid="uid://n1io13cywomk" path="res://Scenes/Enemies/squid.tscn" id="4_0f350"]
+[ext_resource type="PackedScene" uid="uid://d2fra4ph0vv51" path="res://Scenes/enemy_bullet.tscn" id="5_wqkje"]
+
+[sub_resource type="Curve" id="Curve_wqkje"]
+_data = [Vector2(0.03825137, 0.033707857), 0.0, 0.0, 0, 0, Vector2(1, 1), 3.0842688, 0.0, 0, 0]
+point_count = 2
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_tumq0")
 jelly_fish_scene = ExtResource("2_81xng")
 crab_scene = ExtResource("3_wqkje")
 squid_scene = ExtResource("4_0f350")
+bullet_scene = ExtResource("5_wqkje")
+difficulty_curve = SubResource("Curve_wqkje")
 
 [node name="Enemies" type="Node2D" parent="."]
 
 [node name="MoveTimer" type="Timer" parent="."]
 wait_time = 0.5
+
+[node name="ShootTimer" type="Timer" parent="."]
+wait_time = 0.5
 autostart = true
 
+[node name="ReloadTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="RespawnTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
 [connection signal="timeout" from="MoveTimer" to="." method="_on_move_timer_timeout"]
+[connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]
+[connection signal="timeout" from="ReloadTimer" to="." method="_on_reload_timer_timeout"]
+[connection signal="timeout" from="RespawnTimer" to="." method="_on_respawn_timer_timeout"]

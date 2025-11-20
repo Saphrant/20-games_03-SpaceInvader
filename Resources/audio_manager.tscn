@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://dwh6q356esxkh"]
+
+[ext_resource type="Script" uid="uid://7w8t7ye4cys0" path="res://Resources/audio_manager.gd" id="1_76h3l"]
+[ext_resource type="AudioStream" uid="uid://bau7c5k7t05eo" path="res://Assets/Sounds/SFX/explosion.wav" id="2_dsl7b"]
+[ext_resource type="AudioStream" uid="uid://bnfc3eerto5wf" path="res://Assets/Sounds/SFX/gameover2.ogg" id="3_ii4xg"]
+[ext_resource type="AudioStream" uid="uid://b77fjl8oesfc7" path="res://Assets/Sounds/SFX/lowFrequency_explosion_000.ogg" id="3_uxluw"]
+
+[node name="AudioManager" type="Node"]
+script = ExtResource("1_76h3l")
+
+[node name="Explosion" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_dsl7b")
+volume_db = -15.0
+bus = &"SFX"
+
+[node name="Explosion2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_uxluw")
+volume_db = -15.0
+bus = &"SFX"
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+
+[node name="Death" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_ii4xg")
+volume_db = -20.0
+bus = &"Music"
+
+[node name="GameOver" type="AudioStreamPlayer" parent="."]

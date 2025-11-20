@@ -1,16 +1,16 @@
 [gd_scene load_steps=7 format=3 uid="uid://buvrsvtx5lcjr"]
 
 [ext_resource type="Script" uid="uid://cnqh5252rtqea" path="res://Scripts/enemy.gd" id="1_mbujr"]
-[ext_resource type="Texture2D" uid="uid://bhpccknk8yb75" path="res://Assets/character_tilesheet_retro_transparent.png" id="2_usnq2"]
+[ext_resource type="Texture2D" uid="uid://bbq7h1ck1w8af" path="res://Assets/character_tilesheet_retro_transparent.png" id="2_usnq2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0830c"]
 size = Vector2(16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_20aek"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_mbujr"]
 atlas = ExtResource("2_usnq2")
 region = Rect2(32, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_87me1"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_usnq2"]
 atlas = ExtResource("2_usnq2")
 region = Rect2(48, 0, 16, 16)
 
@@ -18,10 +18,10 @@ region = Rect2(48, 0, 16, 16)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_20aek")
+"texture": SubResource("AtlasTexture_mbujr")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_87me1")
+"texture": SubResource("AtlasTexture_usnq2")
 }],
 "loop": true,
 "name": &"default",
@@ -32,7 +32,7 @@ animations = [{
 collision_layer = 4
 collision_mask = 27
 script = ExtResource("1_mbujr")
-award_score = 20
+score_value = 20
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_0830c")

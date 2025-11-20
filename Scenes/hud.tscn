@@ -1,0 +1,177 @@
+[gd_scene load_steps=9 format=3 uid="uid://dlklc87qvyr3b"]
+
+[ext_resource type="Script" uid="uid://breprvcuv22ma" path="res://Scripts/hud.gd" id="1_bjfho"]
+[ext_resource type="Texture2D" uid="uid://bbq7h1ck1w8af" path="res://Assets/character_tilesheet_retro_transparent.png" id="1_e0onf"]
+[ext_resource type="FontFile" uid="uid://c2xcx5nxbh4rt" path="res://Assets/Fonts/Endless Boss Battle.ttf" id="1_fccik"]
+[ext_resource type="FontFile" uid="uid://drgg8iqc3mtg7" path="res://Assets/Fonts/Italipixel.ttf" id="4_6fbih"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fccik"]
+atlas = ExtResource("1_e0onf")
+region = Rect2(32, 16, 16, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t1xeu"]
+atlas = ExtResource("1_e0onf")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_36asn"]
+atlas = ExtResource("1_e0onf")
+region = Rect2(16, 32, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8jye8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t1xeu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_36asn")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="HUD" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bjfho")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="Scores" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/separation = 34
+
+[node name="ScoreLabel" type="Label" parent="MarginContainer/Scores"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("1_fccik")
+text = "Score: 0000"
+
+[node name="HighscoreLabel" type="Label" parent="MarginContainer/Scores"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("1_fccik")
+text = "Highscore: 00000"
+horizontal_alignment = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="Life1" type="TextureRect" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_fccik")
+stretch_mode = 2
+
+[node name="Life2" type="TextureRect" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_fccik")
+stretch_mode = 2
+
+[node name="GameOverContainer" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -129.0
+offset_top = -49.5
+offset_right = 129.0
+offset_bottom = 49.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GameOver" type="Label" parent="GameOverContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_fccik")
+theme_override_font_sizes/font_size = 48
+text = "GAME OVER"
+
+[node name="FinalScoreLabel" type="Label" parent="GameOverContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_fccik")
+theme_override_font_sizes/font_size = 24
+text = "Score: 000"
+horizontal_alignment = 1
+
+[node name="NewHighScoreLabel" type="Label" parent="GameOverContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_fccik")
+theme_override_font_sizes/font_size = 24
+text = "Highscore: 000"
+horizontal_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="GameOverContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 20
+
+[node name="Label" type="Label" parent="GameOverContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_6fbih")
+text = "Press shoot to restart"
+horizontal_alignment = 1
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="GameOverContainer"]
+position = Vector2(-3, 142.5)
+sprite_frames = SubResource("SpriteFrames_8jye8")
+autoplay = "default"
+frame_progress = 0.10840414
+speed_scale = 0.5
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="GameOverContainer"]
+position = Vector2(262, 142.5)
+sprite_frames = SubResource("SpriteFrames_8jye8")
+autoplay = "default"
+frame_progress = 0.083909
+speed_scale = 0.5
+
+[node name="LevelCompleteContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -129.0
+offset_top = -49.5
+offset_right = 129.0
+offset_bottom = 49.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LevelComplete" type="Label" parent="LevelCompleteContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_fccik")
+theme_override_font_sizes/font_size = 48
+text = "LEVEL COMPLETE"
+
+[node name="MarginContainer" type="MarginContainer" parent="LevelCompleteContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 20
+
+[node name="GetReady" type="Label" parent="LevelCompleteContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_fccik")
+theme_override_font_sizes/font_size = 24
+text = "Get Ready..."
+horizontal_alignment = 1

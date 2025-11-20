@@ -1,13 +1,7 @@
 extends Area2D
 
-signal enemy_death
+@export var score_value: int
 
-
-@export_category("Specific Enemy Properties")
-@export var award_score:= 10
-	
-var wall_hit:= true
-	
 func _on_area_entered(_area: Area2D) -> void:
-		enemy_death.emit(self)
+		GameManager.on_enemy_destroyed(global_position, score_value,"alien")
 		queue_free()
